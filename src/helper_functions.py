@@ -33,3 +33,4 @@ def copy_static(source_dir, dest_dir):
             print(f"Creating directory: {copy_path}")
             os.mkdir(copy_path)
             copy_static(dir_path, copy_path)
+
