@@ -81,9 +81,9 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
             if item.endswith(".md"):
                 dest_file = item.replace(".md", ".html")
                 dest_path = os.path.join(dest_dir_path, dest_file)
-                generate_page(item_path, template_path, dest_path)
+            generate_page(item_path, template_path, os.path.join(dest_dir_path, dest_path))
         else:
-            dir_path = os.path.join(dir_path_content, item)
+            dir_path = os.path.join(dir_
             copy_path = os.path.join(dest_dir_path, item)
             print(f"Creating directory: {copy_path}")
             generate_pages_recursive(dir_path, template_path, copy_path)

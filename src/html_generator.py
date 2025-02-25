@@ -37,7 +37,7 @@ def markdown_to_html_node(markdown):
             lines = block.split('\n')
             list_node = ParentNode("ul", [])
             for line in lines:
-                clean_line = line.lstrip('- ').lstrip('* ')
+                clean_line = line.removeprefix('- ').removeprefix('* ')
                 line_node = ParentNode("li", text_to_children(clean_line))
                 list_node.children.append(line_node)
             parent.children.append(list_node)
