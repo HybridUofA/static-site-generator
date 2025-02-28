@@ -3,7 +3,7 @@ from htmlnode import HTMLNode, ParentNode, LeafNode
 from textnode import TextNode, extract_title
 import os
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath):
     
     
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
@@ -49,7 +49,8 @@ def generate_page(from_path, template_path, dest_path):
     final_html = template_content.replace("{{ Title }}", title)
 
     final_html = final_html.replace("{{ Content }}", html_content)
-    
+   
+    final_html = final_html.replace('href="/', f'href="{basepath}').replace('src="/', f'src="{basepath}')
     
     # Create destination directory if it doesn't exist
     
@@ -72,7 +73,7 @@ def generate_page(from_path, template_path, dest_path):
         raise Exception(f"Failed to write HTML file to {dest_path}: {str(e)}")
 
 
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath):
     os.makedirs(dest_dir_path, exist_ok=True)
     for item in os.listdir(dir_path_content):
         item_path = os.path.join(dir_path_content, item)
@@ -81,9 +82,9 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
             if item.endswith(".md"):
                 dest_file = item.replace(".md", ".html")
                 dest_path = os.path.join(dest_dir_path, dest_file)
-                generate_page(item_path, template_path, dest_path)
+                generate_page(item_path, template_path, dest_path, basepath)
         else:
             dir_path = os.path.join(dir_path_content, item)
             copy_path = os.path.join(dest_dir_path, item)
             print(f"Creating directory: {copy_path}")
-            generate_pages_recursive(dir_path, template_path, copy_path)
+            generate_pages_recursive(dir_path, template_path, copy_path, basepath)
