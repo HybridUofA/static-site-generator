@@ -7,7 +7,7 @@ def main():
         basepath = sys.argv[1]
     else:
         basepath = "/"
-    copy_static("/home/ec2-user/sitegen/static", "/home/ec2-user/sitegen/public")
+    copy_static("/home/ec2-user/sitegen/static", "/home/ec2-user/sitegen/docs")
     generate_pages_recursive("content", "template.html", "docs", basepath)
 
 main()
