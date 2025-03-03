@@ -1,2 +1,2 @@
 #!/bin/bash
-python3.11 src/main.py "/HybridUofA/static-site-generator"
+python3.11 src/main.py "/static-site-generator/"
