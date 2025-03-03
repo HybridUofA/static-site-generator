@@ -1,7 +1,7 @@
 from html_generator import markdown_to_html_node
 from htmlnode import HTMLNode, ParentNode, LeafNode
 from textnode import TextNode, extract_title
-import os
+import os, shutil
 
 def generate_page(from_path, template_path, dest_path, basepath):
     
@@ -78,11 +78,12 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, bas
     for item in os.listdir(dir_path_content):
         item_path = os.path.join(dir_path_content, item)
         if os.path.isfile(item_path):
-            print(f"Creating .html file from: {item_path}")
             if item.endswith(".md"):
+                print(f"Creating .html file from: {item_path}")
                 dest_file = item.replace(".md", ".html")
                 dest_path = os.path.join(dest_dir_path, dest_file)
                 generate_page(item_path, template_path, dest_path, basepath)
+
         else:
             dir_path = os.path.join(dir_path_content, item)
             copy_path = os.path.join(dest_dir_path, item)
